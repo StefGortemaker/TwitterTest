@@ -33,11 +33,37 @@ public class Tweet {
 
     private ArrayList<Entity> entities;
 
-    public String getCreatAt() {
+    public static Tweet fromJSON(JSONObject tweetObj) {
+        Tweet tweet = new Tweet();
+        try {
+            tweet.created_at = tweetObj.getString("created_at");
+            tweet.id_str = tweetObj.getString("id_str");
+            tweet.text = tweetObj.getString("text");
+            tweet.id = tweetObj.getInt("id");
+
+            tweet.retweet_count = tweetObj.getInt("retweet_count");
+            tweet.favorite_count = tweetObj.getInt("favorite_count");
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        return tweet;
+    }
+
+    private class Metadata{
+        private String iso_language_code;
+        private String result_type;
+    }
+
+    //getters
+    public String getCreated_at() {
         return created_at;
     }
 
-    public String getStringID() {
+    public int getId() {
+        return id;
+    }
+
+    public String getId_str() {
         return id_str;
     }
 
@@ -49,20 +75,51 @@ public class Tweet {
         return truncated;
     }
 
-    public static Tweet fromJSON(JSONObject tweetObj) {
-        Tweet tweet = new Tweet();
-        try {
-            tweet.created_at = tweetObj.getString("created_at");
-            tweet.id_str = tweetObj.getString("id_str");
-            tweet.text = tweetObj.getString("text");
-        }catch(JSONException e){
-            e.printStackTrace();
-        }
-        return tweet;
+    public String getSource() {
+        return source;
     }
 
-    private class Metadata{
-        private String iso_language_code;
-        private String result_type;
+    public int getIn_reply_to_status() {
+        return in_reply_to_status;
+    }
+
+    public String getIn_reply_to_status_str() {
+        return in_reply_to_status_str;
+    }
+
+    public int getIn_reply_to_user_id() {
+        return in_reply_to_user_id;
+    }
+
+    public String getIn_reply_too_user_id_str() {
+        return in_reply_too_user_id_str;
+    }
+
+    public String getIn_reply_to_screen_name() {
+        return in_reply_to_screen_name;
+    }
+
+    public boolean isIs_quote_status() {
+        return is_quote_status;
+    }
+
+    public int getRetweet_count() {
+        return retweet_count;
+    }
+
+    public int getFavorite_count() {
+        return favorite_count;
+    }
+
+    public boolean isFavorited() {
+        return favorited;
+    }
+
+    public boolean isRetweeted() {
+        return retweeted;
+    }
+
+    public String getLang() {
+        return lang;
     }
 }

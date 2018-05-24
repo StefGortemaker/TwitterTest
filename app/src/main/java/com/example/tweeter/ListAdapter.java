@@ -34,12 +34,12 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
         Tweet tweet = getItem(position);
 
         TextView tvName = convertView.findViewById(R.id.textViewName);
-        TextView createdAt = convertView.findViewById(R.id.textViewScreenName);
+        TextView createdAt = convertView.findViewById(R.id.createDateTV);
         TextView tvText = convertView.findViewById(R.id.textViewText);
 
-        tvName.setText(tweet.getStringID());
+        tvName.setText(tweet.getId_str());
         tvText.setText(tweet.getText());
-        createdAt.setText(tweet.getCreatAt());
+        createdAt.setText(tweet.getCreated_at());
 
         return convertView;
     }

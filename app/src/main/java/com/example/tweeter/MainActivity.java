@@ -1,16 +1,16 @@
 package com.example.tweeter;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,28 +23,28 @@ public class MainActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.listView);
 
-        InputStream is = getBaseContext().getResources().openRawResource(R.raw.statuses);
+         /*InputStream is = getBaseContext().getResources().openRawResource(R.raw.statuses);
 
         try {
             byte [] b = new byte[is.available()];
             is.read(b);
-            String fileContent = new String(b);
-            JSONObject jsonObject = new JSONObject(fileContent);
-            JSONArray jsonArray = jsonObject.getJSONArray("statuses");
-
-            for(int i = 0; i < jsonArray.length(); i++){
-                JSONObject rawStatus = jsonArray.getJSONObject(i);
-                Tweet newTweet = Tweet.fromJSON(rawStatus);
-                Dataprovider.tweets.add(newTweet);
-            }
+            String fileContent = new JSONObject();
         } catch (IOException e){
             e.printStackTrace();
-        } catch (JSONException jsonE){
-            jsonE.printStackTrace();
         }
-
-        ListAdapter listAdapter = new ListAdapter(this, Dataprovider.tweets);
-        listView.setAdapter(listAdapter);
+        */
     }
-}
+
+    public class GetTimeLineForMainActivityTask extends AsyncTask<Void, Void, List<Tweet>> {
+
+        @Override
+        protected List<Tweet> doInBackground(Void... voids) {
+
+            List<Tweet> respones = new ArrayList<>();
+
+            // OAuthRequest requestForTimeLine = new OAuthRequest(Verb.GET, )
+            return null;
+        }
+    }
+    }
 

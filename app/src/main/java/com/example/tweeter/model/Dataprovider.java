@@ -1,4 +1,4 @@
-package com.example.tweeter;
+package com.example.tweeter.model;
 
 import java.util.ArrayList;
 import java.util.List;

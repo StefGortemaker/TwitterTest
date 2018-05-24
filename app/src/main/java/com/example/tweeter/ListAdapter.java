@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.tweeter.model.Tweet;
+
 import java.util.List;
 
 public class ListAdapter extends ArrayAdapter<Tweet> {

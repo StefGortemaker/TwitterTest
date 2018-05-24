@@ -35,8 +35,7 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
         TextView tvScreenName = convertView.findViewById(R.id.textViewScreenName);
         TextView tvText = convertView.findViewById(R.id.textViewText);
 
-        tvName.setText(tweet.getId());
-        tvScreenName.setText(tweet.getIdString());
+        tvName.setText(tweet.getStringID());
         tvText.setText(tweet.getText());
 
         return convertView;

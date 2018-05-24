@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Tweeter</string>
+    <string name="name">Name</string>
+    <string name="screenName">\@ScreenName</string>
+    <string name="tweet">tweetText</string>
+    <string name="createdDate">xx-xx-xxx</string>
 </resources>

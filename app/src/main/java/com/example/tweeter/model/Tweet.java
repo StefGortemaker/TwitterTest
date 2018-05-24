@@ -57,7 +57,6 @@ public class Tweet {
             tweet.text = tweetObj.getString("text");
         }catch(JSONException e){
             e.printStackTrace();
-            return null;
         }
         return tweet;
     }

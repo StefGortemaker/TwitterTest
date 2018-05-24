@@ -35,9 +35,8 @@ public class Tweet {
             tweet.creatAt = tweetObj.getString("created_at");
             tweet.stringID = tweetObj.getString("id_str");
             tweet.text = tweetObj.getString("text");
-        }catch(JSONException e){
+        }catch(JSONException e) {
             e.printStackTrace();
-            return null;
         }
         return tweet;
     }

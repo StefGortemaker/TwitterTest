@@ -15,7 +15,7 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
 
     LayoutInflater inflater;
 
-    public ListAdapter(@NonNull Context context, int resource, @NonNull List<Tweet> objects) {
+    public ListAdapter(@NonNull Context context, @NonNull List<Tweet> objects) {
         super(context, R.layout.compound_listview, objects);
 
         inflater = LayoutInflater.from(context);
@@ -32,11 +32,12 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
         Tweet tweet = getItem(position);
 
         TextView tvName = convertView.findViewById(R.id.textViewName);
-        TextView tvScreenName = convertView.findViewById(R.id.textViewScreenName);
+        TextView createdAt = convertView.findViewById(R.id.textViewScreenName);
         TextView tvText = convertView.findViewById(R.id.textViewText);
 
         tvName.setText(tweet.getStringID());
         tvText.setText(tweet.getText());
+        createdAt.setText(tweet.getCreatAt());
 
         return convertView;
     }

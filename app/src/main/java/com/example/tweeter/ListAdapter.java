@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.tweeter.model.Dataprovider;
 import com.example.tweeter.model.Tweet;
+import com.example.tweeter.model.User;
 
 import java.util.List;
 
@@ -32,14 +34,15 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
         }
 
         Tweet tweet = getItem(position);
+        User user = Dataprovider.users.get(position);
 
         TextView tvName = convertView.findViewById(R.id.textViewName);
-        TextView createdAt = convertView.findViewById(R.id.textViewScreenName);
+        TextView tvScreenName = convertView.findViewById(R.id.textViewScreenName);
         TextView tvText = convertView.findViewById(R.id.textViewText);
 
-        tvName.setText(tweet.getStringID());
+        tvName.setText(user.getName());
         tvText.setText(tweet.getText());
-        createdAt.setText(tweet.getCreatAt());
+        tvScreenName.setText(user.getScreen_name());
 
         return convertView;
     }

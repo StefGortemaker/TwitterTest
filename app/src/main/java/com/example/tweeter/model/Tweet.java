@@ -1,5 +1,6 @@
 package com.example.tweeter.model;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -55,6 +56,11 @@ public class Tweet {
             tweet.created_at = tweetObj.getString("created_at");
             tweet.id_str = tweetObj.getString("id_str");
             tweet.text = tweetObj.getString("text");
+
+            JSONObject jsonObject = tweetObj.getJSONObject("user");
+            User user = User.fromJSON(jsonObject);
+            Dataprovider.users.add(user);
+
         }catch(JSONException e){
             e.printStackTrace();
         }

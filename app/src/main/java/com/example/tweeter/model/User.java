@@ -1,5 +1,8 @@
 package com.example.tweeter.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class User {
 
     private int id;
@@ -54,5 +57,30 @@ public class User {
     private String translator_type;
 
     private Entity entities;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getScreen_name() {
+        return screen_name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public static User fromJSON(JSONObject jsonObject){
+        User user = new User();
+        try{
+            user.name = jsonObject.getString("name");
+            user.screen_name = jsonObject.getString("screen_name");
+            user.location = jsonObject.getString("location");
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        return user;
+    }
 
 }

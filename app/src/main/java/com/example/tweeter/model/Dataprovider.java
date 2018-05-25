@@ -6,5 +6,6 @@ import java.util.List;
 public class Dataprovider {
 
    public static List<Tweet> tweets = new ArrayList<>() ;
+   public static List<User> users = new ArrayList<>() ;
 
 }

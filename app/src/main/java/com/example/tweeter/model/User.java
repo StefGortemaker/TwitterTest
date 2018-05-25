@@ -70,12 +70,21 @@ public class User {
         return location;
     }
 
+    public String getProfile_image_url() {
+        return profile_image_url;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
     public static User fromJSON(JSONObject jsonObject){
         User user = new User();
         try{
             user.name = jsonObject.getString("name");
             user.screen_name = jsonObject.getString("screen_name");
             user.location = jsonObject.getString("location");
+            user.profile_image_url = jsonObject.getString("profile_image_url");
 
         }catch(JSONException e){
             e.printStackTrace();

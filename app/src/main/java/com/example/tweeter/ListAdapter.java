@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tweeter.model.Dataprovider;
 import com.example.tweeter.model.Tweet;
 import com.example.tweeter.model.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,10 +41,17 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
         TextView tvName = convertView.findViewById(R.id.textViewName);
         TextView tvScreenName = convertView.findViewById(R.id.textViewScreenName);
         TextView tvText = convertView.findViewById(R.id.textViewText);
+        TextView tvDateCreated = convertView.findViewById(R.id.createDateTV);
+
+        ImageView profileImage = convertView.findViewById(R.id.profileImage);
 
         tvName.setText(user.getName());
         tvText.setText(tweet.getText());
         tvScreenName.setText("@" + user.getScreen_name());
+
+        tvDateCreated.setText(user.getProfile_image_url());
+
+        Picasso.get().load(user.getProfile_image_url()).into(profileImage);
 
         return convertView;
     }

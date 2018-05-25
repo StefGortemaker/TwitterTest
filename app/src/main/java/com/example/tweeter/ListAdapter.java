@@ -42,7 +42,7 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
 
         tvName.setText(user.getName());
         tvText.setText(tweet.getText());
-        tvScreenName.setText(user.getScreen_name());
+        tvScreenName.setText("@" + user.getScreen_name());
 
         return convertView;
     }

@@ -1,5 +1,8 @@
 package com.example.tweeter.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class User {
 
     private int id;
@@ -55,16 +58,6 @@ public class User {
 
     private Entity entities;
 
-
-    //getters
-    public int getId() {
-        return id;
-    }
-
-    public String getId_str() {
-        return id_str;
-    }
-
     public String getName() {
         return name;
     }
@@ -77,147 +70,17 @@ public class User {
         return location;
     }
 
-    public String getDescription() {
-        return description;
+    public static User fromJSON(JSONObject jsonObject){
+        User user = new User();
+        try{
+            user.name = jsonObject.getString("name");
+            user.screen_name = jsonObject.getString("screen_name");
+            user.location = jsonObject.getString("location");
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        return user;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public boolean isProtect() {
-        return protect;
-    }
-
-    public int getFollowers_count() {
-        return followers_count;
-    }
-
-    public int getFriends_count() {
-        return friends_count;
-    }
-
-    public int getListed_count() {
-        return listed_count;
-    }
-
-    public int getFavourites_count() {
-        return favourites_count;
-    }
-
-    public boolean isVerified() {
-        return verified;
-    }
-
-    public int getStatuses_count() {
-        return statuses_count;
-    }
-
-    public String getCreated_at() {
-        return created_at;
-    }
-
-    public int getUtc_offset() {
-        return utc_offset;
-    }
-
-    public String getTime_zone() {
-        return time_zone;
-    }
-
-    public boolean isGeo_enabled() {
-        return geo_enabled;
-    }
-
-    public String getLang() {
-        return lang;
-    }
-
-    public boolean isContributors_enabled() {
-        return contributors_enabled;
-    }
-
-    public boolean isIs_translator() {
-        return is_translator;
-    }
-
-    public boolean isIs_translation_enabled() {
-        return is_translation_enabled;
-    }
-
-    public String getProfile_background_image_url() {
-        return profile_background_image_url;
-    }
-
-    public String getProfile_background_image_url_https() {
-        return profile_background_image_url_https;
-    }
-
-    public boolean isProfile_background_title() {
-        return profile_background_title;
-    }
-
-    public String getProfile_image_url() {
-        return profile_image_url;
-    }
-
-    public String getProfile_image_url_https() {
-        return profile_image_url_https;
-    }
-
-    public String getProfile_banner_url() {
-        return profile_banner_url;
-    }
-
-    public String getProfile_link_color() {
-        return profile_link_color;
-    }
-
-    public String getProfile_sidebar_border_color() {
-        return profile_sidebar_border_color;
-    }
-
-    public String getProfile_sidebar_fill_color() {
-        return profile_sidebar_fill_color;
-    }
-
-    public String getProfile_text_color() {
-        return profile_text_color;
-    }
-
-    public String getProfile_use_background_color() {
-        return profile_use_background_color;
-    }
-
-    public boolean isHas_extended_profile() {
-        return has_extended_profile;
-    }
-
-    public boolean isDefault_profile() {
-        return default_profile;
-    }
-
-    public boolean isDefault_profile_image() {
-        return default_profile_image;
-    }
-
-    public boolean isFollowing() {
-        return following;
-    }
-
-    public boolean isFollow_request_sent() {
-        return follow_request_sent;
-    }
-
-    public boolean isNotifications() {
-        return notifications;
-    }
-
-    public String getTranslator_type() {
-        return translator_type;
-    }
-
-    public Entity getEntities() {
-        return entities;
-    }
 }

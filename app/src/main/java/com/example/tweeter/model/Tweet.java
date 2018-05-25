@@ -57,9 +57,13 @@ public class Tweet {
             tweet.id_str = tweetObj.getString("id_str");
             tweet.text = tweetObj.getString("text");
 
-            JSONObject jsonObject = tweetObj.getJSONObject("user");
-            User user = User.fromJSON(jsonObject);
+            JSONObject userJsonObject = tweetObj.getJSONObject("user");
+            User user = User.fromJSON(userJsonObject);
             Dataprovider.users.add(user);
+
+            JSONObject entityJsonObject = tweetObj.getJSONObject("entities");
+            Entity entity = Entity.fromJSON(entityJsonObject);
+            Dataprovider.entities.add(entity);
 
         }catch(JSONException e){
             e.printStackTrace();

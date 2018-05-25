@@ -1,46 +1,28 @@
 package com.example.tweeter.model;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Entity {
 
-    private ArrayList<hashtag> hashtags;
-    private ArrayList<symbol> symbols;
-    private ArrayList<userMention> userMentions;
-    private ArrayList<Url> urls;
-    private ArrayList<Media> media;
+    public static Entity fromJSON(JSONObject entityObject){
+        Entity entity = new Entity();
+        try{
+            JSONObject hashtagJsonObject = entityObject.getJSONObject("hashtag");
+            Hashtag hashtag = Hashtag.fromJSON(hashtagJsonObject);
+            Dataprovider.hashtags.add(hashtag);
 
-    public class hashtag{
+            JSONObject userMentionJsonObject = entityObject.getJSONObject("user_mentions");
+            UserMention userMention = UserMention.fromJSON(userMentionJsonObject);
+            Dataprovider.userMentions.add(userMention);
 
-        private String text;
+            JSONObject urlJsonObject = entityObject.getJSONObject("urls");
+            Url url = Url.fromJSON(urlJsonObject);
+            Dataprovider.urls.add(url);
 
-        private ArrayList<Integer> indices;
-    }
-
-    public class symbol{
-
-    }
-
-    public class userMention{
-
-        private String screen_name;
-        private String name;
-        private int id;
-        private String id_str;
-
-        private ArrayList<Integer> indices;
-    }
-
-    public class Url{
-
-        private String url;
-        private String expanded_url;
-        private String display_url;
-
-        private ArrayList<Integer> indices;
-    }
-
-    public class Media{
-
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        return entity;
     }
 }

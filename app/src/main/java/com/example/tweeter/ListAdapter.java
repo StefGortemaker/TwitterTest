@@ -47,7 +47,7 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
 
         tvName.setText(user.getName());
         tvText.setText(tweet.getText());
-        tvScreenName.setText(user.getScreen_name());
+        tvScreenName.setText("@"+user.getScreen_name());
         createdAt.setText(tweet.getCreatAt());
         Picasso.with(getContext()).load(user.getProfile_image_url()).into(imageView);
 

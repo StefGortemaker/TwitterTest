@@ -73,6 +73,9 @@ public class User {
     public String getProfile_image_url(){
         return profile_image_url;
     }
+    public String getDescription() { return description; }
+
+    public String getProfile_background_image_url() { return profile_background_image_url; }
 
     public static User fromJSON(JSONObject jsonObject){
         User user = new User();
@@ -81,6 +84,8 @@ public class User {
             user.screen_name = jsonObject.getString("screen_name");
             user.location = jsonObject.getString("location");
             user.profile_image_url = jsonObject.getString("profile_image_url");
+            user.description = jsonObject.getString("description");
+            user.profile_background_image_url = jsonObject.getString("profile_background_image_url");
 
         }catch(JSONException e){
             e.printStackTrace();

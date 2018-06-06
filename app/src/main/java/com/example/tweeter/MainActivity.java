@@ -1,7 +1,10 @@
 package com.example.tweeter;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.tweeter.model.Dataprovider;
@@ -48,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
 
         ListAdapter adapter = new ListAdapter(this, Dataprovider.tweets);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detailIntent = new Intent(MainActivity.this, DetailActivity.class);
+                detailIntent.putExtra("Taskindex", position);
+                startActivity(detailIntent);
+            }
+        });
 
     }
 }

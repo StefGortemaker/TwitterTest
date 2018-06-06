@@ -35,12 +35,12 @@ public class DetailActivity extends AppCompatActivity {
             if (index >= 0 && index < Dataprovider.tweets.size()){
                 User user = Dataprovider.users.get(index);
 
-                Picasso.with(getBaseContext()).load(user.getProfile_image_url()).into(imageView);
+                Picasso.get().load(user.getProfile_image_url()).into(imageView);
                 tvName.setText(user.getName());
-                tvScreenName.setText("@" + user.getScreen_name());
+                tvScreenName.setText(user.getScreen_name());
                 tvDescription.setText(user.getDescription());
                 tvLocation.setText(user.getLocation());
-                Picasso.with(getBaseContext()).load(user.getProfile_background_image_url()).into(backgroundImage);
+                Picasso.get().load(user.getProfile_background_image_url()).into(backgroundImage);
             }
         }
     }

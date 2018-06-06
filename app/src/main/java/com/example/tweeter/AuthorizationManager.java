@@ -16,8 +16,8 @@ public class AuthorizationManager {
     }
 
     OAuth10aService authService = new
-            ServiceBuilder(API_KEY)
-                .apiSecret(API_SECRET)
-                .callback(CALLBACK_URL)
+            ServiceBuilder("UmPu4PuPg8YqGwPFDzJrG9Mli")
+                .apiSecret("Jm760oBNVhqoYLf8Ajf4TOXgWwHaDKLZOdaJHMpKKvkEH0v0SN")
+                .callback("https://www.google.com")
                 .build(TwitterApi.instance());
 }

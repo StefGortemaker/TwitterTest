@@ -1,7 +1,6 @@
 package com.example.tweeter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -20,9 +19,9 @@ import java.util.List;
 
 public class ListAdapter extends ArrayAdapter<Tweet> {
 
-    LayoutInflater inflater;
+    private LayoutInflater inflater;
 
-    public ListAdapter(@NonNull Context context, @NonNull List<Tweet> objects) {
+    ListAdapter(@NonNull Context context, @NonNull List<Tweet> objects) {
         super(context, R.layout.compound_listview, objects);
 
         inflater = LayoutInflater.from(context);
@@ -47,9 +46,9 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
 
         tvName.setText(user.getName());
         tvText.setText(tweet.getText());
-        tvScreenName.setText("@"+user.getScreen_name());
+        tvScreenName.setText(user.getScreen_name());
         createdAt.setText(tweet.getCreatAt());
-        Picasso.with(getContext()).load(user.getProfile_image_url()).into(imageView);
+        Picasso.get().load(user.getProfile_image_url()).into(imageView);
 
         return convertView;
     }

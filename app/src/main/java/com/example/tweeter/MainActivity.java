@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        MyAsyncTask myTask = new MyAsyncTask();
+
         listView = findViewById(R.id.listView);
 
         InputStream is = getBaseContext().getResources().openRawResource(R.raw.statuses);

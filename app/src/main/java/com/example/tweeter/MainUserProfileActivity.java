@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +39,8 @@ public class MainUserProfileActivity extends AppCompatActivity{
 
     ListAdapter adapter;
 
+    Toolbar toolbar ;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,8 @@ public class MainUserProfileActivity extends AppCompatActivity{
         tvDescription = findViewById(R.id.textViewDescription);
         tvLocation = findViewById(R.id.textViewLocation);
 
+        toolbar = findViewById(R.id.custom_title_bar);
+        setSupportActionBar(toolbar);
 
         Intent launchIntent = getIntent();
 
@@ -124,6 +131,30 @@ public class MainUserProfileActivity extends AppCompatActivity{
             adapter = new ListAdapter(MainUserProfileActivity.this, tweets);
             tweetList.setAdapter(adapter);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_timeline) {
+            Intent timelineIntent = new Intent(MainUserProfileActivity.this, ListActivity.class);
+            startActivity(timelineIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

@@ -14,4 +14,7 @@ public class Dataprovider {
    public static ArrayList<Url> urls = new ArrayList<>();
    public static ArrayList<Media> media = new ArrayList<>();
 
+   //signed in user
+   public static User user;
+
 }

@@ -14,6 +14,10 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
@@ -22,7 +26,11 @@ import static com.example.tweeter.AuthorizationManager.authService;
 public class MainActivity extends AppCompatActivity {
 
     WebView webView;
-    OAuth1RequestToken reqToken;
+    public static OAuth1RequestToken reqToken;
+    public static OAuth1AccessToken accessToken;
+    public static int user_id;
+
+    public static final String USER_ID = "user_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,13 +114,20 @@ public class MainActivity extends AppCompatActivity {
         protected Response doInBackground(String... voids) {
 
             try {
-                final OAuth1AccessToken accessToken = authService.getAccessToken(reqToken, voids[0]);
+                accessToken = authService.getAccessToken(reqToken, voids[0]);
 
                 OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json");
 
                 authService.signRequest(accessToken, request);
 
                 final Response response = authService.execute(request);
+
+                if (response.isSuccessful()) {
+                    String res = response.getBody();
+
+                    JSONObject jo = new JSONObject(res);
+                    user_id = Integer.parseInt(jo.getString("id"));
+                }
 
                 return response;
 
@@ -122,15 +137,18 @@ public class MainActivity extends AppCompatActivity {
             Ee.printStackTrace();
             }catch (InterruptedException IE){
             IE.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
             return null;
         }
 
         @Override
-        protected void onPostExecute(Response s) {
-            if (s.isSuccessful()){
-                Intent intent = new Intent(MainActivity.this, com.example.tweeter.ListActivity.class);
+        protected void onPostExecute(Response response) {
+            if (response.isSuccessful()){
+                Intent intent = new Intent(MainActivity.this, com.example.tweeter.DetailActivity.class);
+                intent.putExtra(USER_ID, user_id);
                 startActivity(intent);
             }
         }

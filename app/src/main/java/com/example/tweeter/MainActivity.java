@@ -8,13 +8,12 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.github.scribejava.core.model.OAuth1AccessToken;
-import com.github.scribejava.core.model.OAuth1RequestToken;
+import com.example.tweeter.model.Dataprovider;
+import com.example.tweeter.model.User;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,11 +25,6 @@ import static com.example.tweeter.AuthorizationManager.authService;
 public class MainActivity extends AppCompatActivity {
 
     WebView webView;
-    public static OAuth1RequestToken reqToken;
-    public static OAuth1AccessToken accessToken;
-    public static int user_id;
-
-    public static final String USER_ID = "user_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
             String url = "";
 
             try {
-            reqToken = authService.getRequestToken();
-            url = authService.getAuthorizationUrl(reqToken);
+            AuthorizationManager.reqToken = authService.getRequestToken();
+            url = authService.getAuthorizationUrl(AuthorizationManager.reqToken);
 
             }catch (IOException i){
                 i.printStackTrace();
@@ -114,20 +108,19 @@ public class MainActivity extends AppCompatActivity {
         protected Response doInBackground(String... voids) {
 
             try {
-                accessToken = authService.getAccessToken(reqToken, voids[0]);
+                AuthorizationManager.accessToken = authService.getAccessToken(AuthorizationManager.reqToken, voids[0]);
 
                 OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json");
 
-                authService.signRequest(accessToken, request);
+                authService.signRequest(AuthorizationManager.accessToken, request);
 
                 final Response response = authService.execute(request);
 
-                if (response.isSuccessful()) {
-                    String res = response.getBody();
+                String res = response.getBody();
+                JSONObject jo = new JSONObject(res);
 
-                    JSONObject jo = new JSONObject(res);
-                    user_id = Integer.parseInt(jo.getString("id"));
-                }
+                Dataprovider.signedInuUser = User.fromJSON(jo);
+
 
                 return response;
             }catch (IOException i){
@@ -146,8 +139,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Response response) {
             if (response.isSuccessful()){
-                Intent intent = new Intent(MainActivity.this, com.example.tweeter.DetailActivity.class);
-                intent.putExtra(USER_ID, user_id);
+                Intent intent = new Intent(MainActivity.this, com.example.tweeter.MainUserProfileActivity.class);
                 startActivity(intent);
             }
         }

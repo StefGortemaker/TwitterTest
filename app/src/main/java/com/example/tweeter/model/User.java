@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 public class User {
 
-    private int id;
     private String id_str;
 
     private String name;
@@ -58,6 +57,10 @@ public class User {
 
     private Entity entities;
 
+    public String getId_str() {
+        return id_str;
+    }
+
     public String getName() {
         return name;
     }
@@ -82,6 +85,7 @@ public class User {
     public static User fromJSON(JSONObject jsonObject){
         User user = new User();
         try{
+            user.id_str = jsonObject.getString("id_str");
             user.name = jsonObject.getString("name");
             user.screen_name = jsonObject.getString("screen_name");
             user.location = jsonObject.getString("location");

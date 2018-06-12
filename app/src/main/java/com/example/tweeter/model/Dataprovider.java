@@ -15,6 +15,6 @@ public class Dataprovider {
    public static ArrayList<Media> media = new ArrayList<>();
 
    //signed in user
-   public static User user;
+   public static User signedInuUser;
 
 }

@@ -44,7 +44,7 @@ public class DetailActivity extends AppCompatActivity {
         Intent launchIntent = getIntent();
 
         if(launchIntent != null){
-            int index = launchIntent.getIntExtra(MainActivity.USER_ID, -1);
+            String index = launchIntent.getStringExtra(AuthorizationManager.USER_ID);
 
             String id = String.valueOf(index);
             url += id;
@@ -64,7 +64,7 @@ public class DetailActivity extends AppCompatActivity {
             try {
                 OAuthRequest request = new OAuthRequest(Verb.GET, url);
 
-                authService.signRequest(MainActivity.accessToken, request);
+                authService.signRequest(AuthorizationManager.accessToken, request);
 
                 Response response = authService.execute(request);
 

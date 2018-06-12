@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".DetailActivity">
 
-    <include
-        android:id="@+id/custom_title_bar"
-        layout="@layout/custom_title_bar"
-    />
-
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
@@ -84,7 +79,9 @@
         android:id="@+id/lvUserTweetList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLocation" />
 
 </android.support.constraint.ConstraintLayout>

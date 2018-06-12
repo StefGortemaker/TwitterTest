@@ -80,4 +80,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileImage" />
 
+    <ListView
+        android:id="@+id/lvUserTweetList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLocation" />
+
 </android.support.constraint.ConstraintLayout>

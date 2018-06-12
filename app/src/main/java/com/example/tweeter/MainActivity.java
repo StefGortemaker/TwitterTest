@@ -8,13 +8,12 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.github.scribejava.core.model.OAuth1AccessToken;
-import com.github.scribejava.core.model.OAuth1RequestToken;
+import com.example.tweeter.model.Dataprovider;
+import com.example.tweeter.model.User;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,9 +25,6 @@ import static com.example.tweeter.AuthorizationManager.authService;
 public class MainActivity extends AppCompatActivity {
 
     WebView webView;
-    public static String user_id;
-
-    public static final String USER_ID = "user_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,15 +116,13 @@ public class MainActivity extends AppCompatActivity {
 
                 final Response response = authService.execute(request);
 
-                if (response.isSuccessful()) {
-                    String res = response.getBody();
+                String res = response.getBody();
+                JSONObject jo = new JSONObject(res);
 
-                    JSONObject jo = new JSONObject(res);
-                    user_id = jo.getString("id_str");
-                }
+                Dataprovider.signedInuUser = User.fromJSON(jo);
+
 
                 return response;
-
             }catch (IOException i){
             i.printStackTrace();
             }catch (ExecutionException Ee) {
@@ -145,8 +139,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Response response) {
             if (response.isSuccessful()){
-                Intent intent = new Intent(MainActivity.this, com.example.tweeter.DetailActivity.class);
-                intent.putExtra(USER_ID, user_id);
+                Intent intent = new Intent(MainActivity.this, com.example.tweeter.MainUserProfileActivity.class);
                 startActivity(intent);
             }
         }

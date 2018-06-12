@@ -8,6 +8,11 @@ import com.github.scribejava.core.oauth.OAuth10aService;
 
 public class AuthorizationManager {
 
+    public static OAuth1RequestToken reqToken;
+    public static OAuth1AccessToken accessToken;
+
+    public static final String USER_ID = "user_id";
+
     private static AuthorizationManager manager;
     private static String API_KEY = "UmPu4PuPg8YqGwPFDzJrG9Mli";
     private static String API_SECRET = "Jm760oBNVhqoYLf8Ajf4TOXgWwHaDKLZOdaJHMpKKvkEH0v0SN";

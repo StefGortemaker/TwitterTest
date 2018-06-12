@@ -4,10 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,15 +29,10 @@ public class DetailActivity extends AppCompatActivity {
     ImageView imageView, backgroundImage;
     TextView tvName, tvScreenName, tvDescription, tvLocation;
 
-    private Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        toolbar = findViewById(R.id.custom_title_bar);
-        setSupportActionBar(toolbar);
 
         imageView = findViewById(R.id.profileImage);
         backgroundImage = findViewById(R.id.backgroundImage);
@@ -53,16 +44,14 @@ public class DetailActivity extends AppCompatActivity {
         Intent launchIntent = getIntent();
 
         if(launchIntent != null){
-            String index = launchIntent.getStringExtra(MainActivity.USER_ID);
+            String index = launchIntent.getStringExtra(AuthorizationManager.USER_ID);
 
-            String id = index;
+            String id = String.valueOf(index);
             url += id;
 
             GetUser getUser = new GetUser();
             getUser.execute();
         }
-
-
     }
 
     public class GetUser extends AsyncTask<Void, Void, User>{
@@ -116,35 +105,5 @@ public class DetailActivity extends AppCompatActivity {
                     .load(user.getProfile_banner_url())
                     .into(backgroundImage);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_timeline) {
-            Intent timelineEvent = new Intent(DetailActivity.this, ListActivity.class);
-            startActivity(timelineEvent);
-            return true;
-        }else if (id == R.id.action_search){
-
-            return true;
-        }else if (id == R.id.action_user){
-
-            return true;
-        }
-
-
-        return super.onOptionsItemSelected(item);
     }
 }

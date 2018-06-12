@@ -15,6 +15,7 @@ import com.example.tweeter.model.Tweet;
 import com.example.tweeter.model.User;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapter extends ArrayAdapter<Tweet> {
@@ -36,7 +37,7 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
         }
 
         Tweet tweet = getItem(position);
-        User user = Dataprovider.users.get(position);
+//        User user = Dataprovider.users.get(position);
 
         TextView tvName = convertView.findViewById(R.id.textViewName);
         TextView tvScreenName = convertView.findViewById(R.id.textViewScreenName);
@@ -44,11 +45,11 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
         TextView createdAt = convertView.findViewById(R.id.textViewCreatedAt);
         ImageView imageView = convertView.findViewById(R.id.profileImage);
 
-        tvName.setText(user.getName());
+//        tvName.setText(user.getName());
         tvText.setText(tweet.getText());
-        tvScreenName.setText(user.getScreen_name());
+//        tvScreenName.setText(user.getScreen_name());
         createdAt.setText(tweet.getCreatAt());
-        Picasso.get().load(user.getProfile_image_url()).into(imageView);
+//        Picasso.get().load(user.getProfile_image_url()).into(imageView);
 
         return convertView;
     }

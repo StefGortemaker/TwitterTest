@@ -26,9 +26,7 @@ import static com.example.tweeter.AuthorizationManager.authService;
 public class MainActivity extends AppCompatActivity {
 
     WebView webView;
-    public static OAuth1RequestToken reqToken;
-    public static OAuth1AccessToken accessToken;
-    public static int user_id;
+    public static String user_id;
 
     public static final String USER_ID = "user_id";
 
@@ -88,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
             String url = "";
 
             try {
-            reqToken = authService.getRequestToken();
-            url = authService.getAuthorizationUrl(reqToken);
+            AuthorizationManager.reqToken = authService.getRequestToken();
+            url = authService.getAuthorizationUrl(AuthorizationManager.reqToken);
 
             }catch (IOException i){
                 i.printStackTrace();
@@ -114,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
         protected Response doInBackground(String... voids) {
 
             try {
-                accessToken = authService.getAccessToken(reqToken, voids[0]);
+                AuthorizationManager.accessToken = authService.getAccessToken(AuthorizationManager.reqToken, voids[0]);
 
                 OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json");
 
-                authService.signRequest(accessToken, request);
+                authService.signRequest(AuthorizationManager.accessToken, request);
 
                 final Response response = authService.execute(request);
 
@@ -126,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     String res = response.getBody();
 
                     JSONObject jo = new JSONObject(res);
-                    user_id = Integer.parseInt(jo.getString("id"));
+                    user_id = jo.getString("id_str");
                 }
 
                 return response;

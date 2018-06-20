@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -152,6 +154,9 @@ public class MainUserProfileActivity extends AppCompatActivity{
             Intent timelineIntent = new Intent(MainUserProfileActivity.this, ListActivity.class);
             startActivity(timelineIntent);
             return true;
+        } else if (id == R.id.action_post_tweet){
+            Intent postTweetIntent = new Intent(MainUserProfileActivity.this, PostTweetActivity.class);
+            startActivity(postTweetIntent);
         }
 
         return super.onOptionsItemSelected(item);

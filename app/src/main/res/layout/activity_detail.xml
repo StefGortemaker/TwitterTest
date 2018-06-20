@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".DetailActivity">
 
+    <include
+        android:id="@+id/custom_title_bar"
+        layout="@layout/custom_title_bar" />
+
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"

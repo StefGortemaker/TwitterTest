@@ -36,29 +36,6 @@ public class MainActivity extends AppCompatActivity {
         getRequestToken getrequestToken = new getRequestToken();
         getrequestToken.execute();
 
-        /*
-        InputStream is = getBaseContext().getResources().openRawResource(R.raw.statuses);
-
-        try {
-            byte[] b = new byte[is.available()];
-            is.read(b);
-            String fileContent = new String(b);
-            JSONObject jsonObject = new JSONObject(fileContent);
-            JSONArray jsonArray = jsonObject.getJSONArray("statuses");
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject explrObject = jsonArray.getJSONObject(i);
-                Tweet tweet = Tweet.fromJSON(explrObject);
-                Dataprovider.tweets.add(tweet);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException jsone) {
-            jsone.printStackTrace();
-        }
-        */
-
         webView.setWebViewClient(new WebViewClient(){
         @Override public boolean shouldOverrideUrlLoading (WebView view, String url) {
             if (url.startsWith("https://tweeter.com")) {

@@ -118,6 +118,12 @@ public class TimeLineActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_timeline) {
             return true;
+        } else if (id == R.id.action_user){
+            Intent signedInUserProfile = new Intent(TimeLineActivity.this, MainUserProfileActivity.class);
+            startActivity(signedInUserProfile);
+        } else if (id == R.id.action_post_tweet){
+            Intent postTweetIntent = new Intent(TimeLineActivity.this, PostTweetActivity.class);
+            startActivity(postTweetIntent);
         }
 
         return super.onOptionsItemSelected(item);

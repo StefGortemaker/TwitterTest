@@ -1,20 +1,20 @@
 package com.example.tweeter;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.example.tweeter.model.Dataprovider;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -29,6 +29,7 @@ public class PostTweetActivity extends AppCompatActivity {
 
     EditText etTwitterText;
     Button btnPostTweet;
+    ImageView userProfileImage;
 
     Toolbar toolbar;
 
@@ -41,9 +42,14 @@ public class PostTweetActivity extends AppCompatActivity {
 
         etTwitterText = findViewById(R.id.etTweetText);
         btnPostTweet = findViewById(R.id.bPostTweet);
+        userProfileImage = findViewById(R.id.ptIVuserImage);
+
 
         toolbar = findViewById(R.id.custom_title_bar);
 
+        Picasso.get()
+                .load(Dataprovider.signedInuUser.getProfile_image_url())
+                .into(userProfileImage);
         btnPostTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,36 +90,9 @@ public class PostTweetActivity extends AppCompatActivity {
             if (response.isSuccessful()){
                 Toast toast = Toast.makeText(getApplicationContext(), "Tweet Posted", Toast.LENGTH_SHORT);
                 toast.show();
+                finish();
             }
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_timeline) {
-            Intent timelineIntent = new Intent(PostTweetActivity.this, ListActivity.class);
-            startActivity(timelineIntent);
-            return true;
-        } // else if (id == R.id.action_post_tweet){
-//            Intent postTweetIntent = new Intent(PostTweetActivity.this, PostTweetActivity.class);
-//            startActivity(postTweetIntent);
-//        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private String urlEncode (String tweet) {

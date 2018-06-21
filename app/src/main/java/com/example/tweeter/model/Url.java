@@ -4,31 +4,38 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Url{
+public class Url {
 
     private String url;
     private String expanded_url;
     private String display_url;
 
-    private ArrayList<Integer> indices;
+    private ArrayList<Integer> indices = new ArrayList<>();
 
-    public static Url fromJSON(JSONObject urlObject){
+    public static Url fromJSON(JSONArray jsonArrayUrl) {
         Url url = new Url();
-        try{
-            url.url = urlObject.getString("url");
-            url.expanded_url = urlObject.getString("expanded_url");
-            url.display_url = urlObject.getString("display_url");
+        if (jsonArrayUrl.length() != 0) {
+            try {
+                JSONObject jsonObjectURL = jsonArrayUrl.getJSONObject(0);
+                if (jsonObjectURL != null) {
+                    url.url = jsonObjectURL.getString("url");
 
-            JSONArray jsonArray = urlObject.getJSONArray("indices");
-            for(int i = 0; i < jsonArray.length(); i++) {
-                int a = jsonArray.getInt(i);
-                url.indices.add(a);
+                    url.expanded_url = jsonObjectURL.getString("expanded_url");
+                    url.display_url = jsonObjectURL.getString("display_url");
+
+                    JSONArray jsonIndices = jsonObjectURL.getJSONArray("indices");
+                    for (int j = 0; j < jsonIndices.length(); j++) {
+                        int a = jsonIndices.getInt(j);
+                        url.indices.add(a);
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-
-        }catch(JSONException e){
-            e.printStackTrace();
         }
         return url;
     }

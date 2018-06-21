@@ -3,27 +3,33 @@ package com.example.tweeter.model;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 
-public class Hashtag{
+public class Hashtag {
 
     private String text;
 
-    private ArrayList<Integer> indices;
+    private ArrayList<Integer> indices = new ArrayList<>();
 
-    public static Hashtag fromJSON(JSONObject hashtagObject){
+    public static Hashtag fromJSON(JSONArray jsonArrayHashtag) {
         Hashtag hashtag = new Hashtag();
-        try{
-            hashtag.text = hashtagObject.getString("text");
+        if (jsonArrayHashtag.length() != 0) {
+            try {
+                JSONObject jsonObjectHashtag = jsonArrayHashtag.getJSONObject(0);
+                if (jsonObjectHashtag != null) {
+                    hashtag.text = jsonObjectHashtag.getString("text");
 
-            JSONArray jsonArray = hashtagObject.getJSONArray("indices");
-            for(int i = 0; i < jsonArray.length(); i++) {
-                int a = jsonArray.getInt(i);
-                hashtag.indices.add(a);
+
+                    JSONArray JSONindices = jsonObjectHashtag.getJSONArray("indices");
+                    for (int j = 0; j < JSONindices.length(); j++) {
+                        int a = JSONindices.getInt(j);
+                        hashtag.indices.add(a);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-
-        }catch(JSONException e){
-            e.printStackTrace();
         }
         return hashtag;
     }

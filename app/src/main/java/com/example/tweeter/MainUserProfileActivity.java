@@ -149,7 +149,7 @@ public class MainUserProfileActivity extends AppCompatActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_timeline) {
-            Intent timelineIntent = new Intent(MainUserProfileActivity.this, ListActivity.class);
+            Intent timelineIntent = new Intent(MainUserProfileActivity.this, TimeLineActivity.class);
             startActivity(timelineIntent);
             return true;
         }

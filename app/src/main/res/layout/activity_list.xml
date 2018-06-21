@@ -4,6 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListActivity">
+    tools:context=".TimeLineActivity">
+
+    <include
+        android:id="@+id/custom_title_bar"
+        layout="@layout/custom_title_bar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/HomeTimeLineListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/custom_title_bar" />
+
+
 
 </android.support.constraint.ConstraintLayout>

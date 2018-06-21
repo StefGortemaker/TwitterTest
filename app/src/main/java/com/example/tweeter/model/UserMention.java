@@ -6,31 +6,38 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class UserMention{
+public class UserMention {
 
     private String screen_name;
     private String name;
     private int id;
     private String id_str;
 
-    private ArrayList<Integer> indices;
+    private ArrayList<Integer> indices = new ArrayList<>();
 
-    public static UserMention fromJSON(JSONObject userMentionObject){
+    public static UserMention fromJSON(JSONArray jsonArrayUserMention) {
         UserMention userMention = new UserMention();
-        try{
-            userMention.screen_name = userMentionObject.getString("screen_name");
-            userMention.name = userMentionObject.getString("name");
-            userMention.id = userMentionObject.getInt("id");
-            userMention.id_str = userMentionObject.getString("id_str");
+        if (jsonArrayUserMention.length() != 0) {
+            try {
+                JSONObject jsonObjectUserMention = jsonArrayUserMention.getJSONObject(0);
 
-            JSONArray jsonArray = userMentionObject.getJSONArray("indices");
-            for(int i = 0; i < jsonArray.length(); i++) {
-                int a = jsonArray.getInt(i);
-                userMention.indices.add(a);
+                if (jsonObjectUserMention != null) {
+                    userMention.screen_name = jsonObjectUserMention.getString("screen_name");
+                    userMention.name = jsonObjectUserMention.getString("name");
+                    userMention.id = jsonObjectUserMention.getInt("id");
+                    userMention.id_str = jsonObjectUserMention.getString("id_str");
+
+                    JSONArray jsonIndices = jsonObjectUserMention.getJSONArray("indices");
+                    for (int i = 0; i < jsonIndices.length(); i++) {
+                        int a = jsonIndices.getInt(i);
+                        userMention.indices.add(a);
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
-        }catch(JSONException e){
-            e.printStackTrace();
         }
 
         return userMention;

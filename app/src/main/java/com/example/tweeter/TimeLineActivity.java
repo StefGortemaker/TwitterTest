@@ -2,23 +2,19 @@ package com.example.tweeter;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import com.example.tweeter.model.Dataprovider;
 import com.example.tweeter.model.Tweet;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,66 +27,38 @@ import java.util.concurrent.ExecutionException;
 
 import static com.example.tweeter.AuthorizationManager.authService;
 
-public class MainUserProfileActivity extends AppCompatActivity{
+public class TimeLineActivity extends AppCompatActivity {
 
-    private String timelineURL = "https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=";
+    private String homeTimeLineUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json";
 
-    ImageView imageView, backgroundImage;
-    TextView tvName, tvScreenName, tvDescription, tvLocation;
-    ListView tweetList;
-
-    ListAdapter adapter;
-
-    Toolbar toolbar ;
+    private ListView homeTimeLineList;
+    private ListAdapter listAdapter;
+    Toolbar toolbar;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_list);
 
-        tweetList = findViewById(R.id.lvUserTweetList);
-
-        timelineURL += Dataprovider.signedInuUser.getId_str();
-
-        imageView = findViewById(R.id.profileImage);
-        backgroundImage = findViewById(R.id.backgroundImage);
-        tvName = findViewById(R.id.textViewName);
-        tvScreenName = findViewById(R.id.textViewScreenName);
-        tvDescription = findViewById(R.id.textViewDescription);
-        tvLocation = findViewById(R.id.textViewLocation);
-
+        homeTimeLineList = findViewById(R.id.HomeTimeLineListView);
         toolbar = findViewById(R.id.custom_title_bar);
         setSupportActionBar(toolbar);
 
         Intent launchIntent = getIntent();
 
-        if (launchIntent != null){
-
-            GetUserTimeline getTimeline = new GetUserTimeline();
-            getTimeline.execute();
-
-            Picasso.get()
-                    .load(Dataprovider.signedInuUser.getProfile_image_url())
-                    .into(imageView);
-            tvName.setText(Dataprovider.signedInuUser.getName());
-            tvScreenName.setText(Dataprovider.signedInuUser.getScreen_name());
-            tvDescription.setText(Dataprovider.signedInuUser.getDescription());
-            tvLocation.setText(Dataprovider.signedInuUser.getLocation());
-            Picasso.get()
-                    .load(Dataprovider.signedInuUser.getProfile_banner_url())
-                    .into(backgroundImage);
+        if(launchIntent != null){
+            GetHomeTimeLine getHomeTimeLine = new GetHomeTimeLine();
+            getHomeTimeLine.execute();
         }
     }
 
-    private class GetUserTimeline extends AsyncTask<Void, Void, List<Tweet>>{
-
-
+    private class GetHomeTimeLine extends AsyncTask<Void, Void, List<Tweet>>{
         @Override
         protected List<Tweet> doInBackground(Void... voids) {
             List<Tweet> tweets = new ArrayList<>();
 
             try{
-                OAuthRequest request = new OAuthRequest(Verb.GET, timelineURL);
+                OAuthRequest request = new OAuthRequest(Verb.GET, homeTimeLineUrl);
 
                 authService.signRequest(AuthorizationManager.accessToken, request);
 
@@ -99,14 +67,12 @@ public class MainUserProfileActivity extends AppCompatActivity{
                 if (response.isSuccessful()){
                     String res = response.getBody();
 
-                   // JSONObject jo = new JSONObject(res);
                     JSONArray jsonArray = new JSONArray(res);
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonTweet = jsonArray.getJSONObject(i);
                         Tweet tweet = Tweet.fromJSON(jsonTweet);
 
-//                        Dataprovider.tweets.add(tweet);
                         tweets.add(tweet);
                     }
 
@@ -130,8 +96,8 @@ public class MainUserProfileActivity extends AppCompatActivity{
         protected void onPostExecute(List<Tweet> tweets) {
             super.onPostExecute(tweets);
 
-            adapter = new ListAdapter(MainUserProfileActivity.this, tweets);
-            tweetList.setAdapter(adapter);
+            listAdapter = new ListAdapter(TimeLineActivity.this, tweets);
+            homeTimeLineList.setAdapter(listAdapter);
         }
     }
 
@@ -151,12 +117,7 @@ public class MainUserProfileActivity extends AppCompatActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_timeline) {
-            Intent timelineIntent = new Intent(MainUserProfileActivity.this, TimeLineActivity.class);
-            startActivity(timelineIntent);
             return true;
-        } else if (id == R.id.action_post_tweet){
-            Intent postTweetIntent = new Intent(MainUserProfileActivity.this, PostTweetActivity.class);
-            startActivity(postTweetIntent);
         }
 
         return super.onOptionsItemSelected(item);

@@ -1,10 +1,13 @@
 package com.example.tweeter.model;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Tweet {
+
+    private User user;
 
     private String created_at;
     private int id;
@@ -49,6 +52,10 @@ public class Tweet {
         return truncated;
     }
 
+    public User getUser(){
+        return user;
+    }
+
     public static Tweet fromJSON(JSONObject tweetObj) {
         Tweet tweet = new Tweet();
         try {
@@ -57,12 +64,13 @@ public class Tweet {
             tweet.text = tweetObj.getString("text");
 
             JSONObject userJsonObject = tweetObj.getJSONObject("user");
-            User user = User.fromJSON(userJsonObject);
-            Dataprovider.users.add(user);
+            tweet.user = User.fromJSON(userJsonObject);
+            // Dataprovider.users.add(user);
 
-            JSONObject entityJsonObject = tweetObj.getJSONObject("entities");
-            Entity entity = Entity.fromJSON(entityJsonObject);
-            Dataprovider.entities.add(entity);
+            JSONObject JsonEntity = tweetObj.getJSONObject("entities");
+            //Entity entity =
+            Entity.fromJSON(JsonEntity);
+            //Dataprovider.entities.add(entity);
 
         }catch(JSONException e){
             e.printStackTrace();

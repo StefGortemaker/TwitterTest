@@ -21,6 +21,7 @@
         <activity android:name=".DetailActivity" />
         <activity android:name=".TimeLineActivity" />
         <activity android:name=".MainUserProfileActivity"/>
+        <activity android:name=".PostTweetActivity" />
     </application>
 
 </manifest>

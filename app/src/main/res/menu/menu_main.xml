@@ -11,13 +11,18 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_search"
-        android:orderInCategory="200"
+        android:orderInCategory="300"
         android:title="Search"
         app:showAsAction="never"/>
     <item
         android:id="@+id/action_user"
-        android:orderInCategory="300"
+        android:orderInCategory="400"
         android:title="User"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_post_tweet"
+        android:orderInCategory="200"
+        android:title="Post Tweet"
         app:showAsAction="never" />
 
 </menu>

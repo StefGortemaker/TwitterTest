@@ -91,7 +91,7 @@ public class User {
             user.location = jsonObject.getString("location");
             user.profile_image_url = jsonObject.getString("profile_image_url");
             user.description = jsonObject.getString("description");
-            //user.profile_banner_url = jsonObject.getString("profile_banner_url");
+            user.profile_banner_url = jsonObject.getString("profile_banner_url");
 
         }catch(JSONException e){
             e.printStackTrace();

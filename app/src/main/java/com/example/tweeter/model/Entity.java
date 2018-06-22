@@ -4,44 +4,35 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Entity {
 
-    public ArrayList<Hashtag> hashtags = new ArrayList<>();
-    public ArrayList<UserMention> userMentions = new ArrayList<>();
-    public ArrayList<Url> urls = new ArrayList<>();
+    private List<Hashtag> hashtags;
+    private List<Media> media;
+    private List<Url> urls;
+    private List<UserMention> userMentions;
+    private List<Symbol> symbols;
 
-    public ArrayList<Url> getUrls() {
-        return urls;
-    }
-
-    public ArrayList<UserMention> getUserMentions() {
-        return userMentions;
-    }
-
-    public ArrayList<Hashtag> getHashtags() {
-        return hashtags;
-    }
 
     public static Entity fromJSON(JSONObject jsonObject){
         Entity entity = new Entity();
         try{
 
             JSONArray jsonArrayHastag = jsonObject.getJSONArray("hashtags");
-            Hashtag hashtag = Hashtag.fromJSON(jsonArrayHastag);
-            entity.hashtags.add(hashtag);
-            Dataprovider.hashtags.add(hashtag);
+            //Hashtag hashtag =
+            Hashtag.fromJSON(jsonArrayHastag);
+            //Dataprovider.hashtags.add(hashtag);
 
             JSONArray jsonArrayUserMention = jsonObject.getJSONArray("user_mentions");
-            UserMention userMention = UserMention.fromJSON(jsonArrayUserMention);
-            entity.userMentions.add(userMention);
-            Dataprovider.userMentions.add(userMention);
+            //UserMention userMention =
+            UserMention.fromJSON(jsonArrayUserMention);
+            //Dataprovider.userMentions.add(userMention);
 
             JSONArray jsonArrayUrl = jsonObject.getJSONArray("urls");
-            Url url = Url.fromJSON(jsonArrayUrl);
-            entity.urls.add(url);
-            Dataprovider.urls.add(url);
+            //Url url =
+            Url.fromJSON(jsonArrayUrl);
+            //Dataprovider.urls.add(url);
 
         }catch(JSONException e){
             e.printStackTrace();

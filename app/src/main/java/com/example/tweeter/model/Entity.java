@@ -4,7 +4,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class Entity {
+
+    private List<Hashtag> hashtags;
+    private List<Media> media;
+    private List<Url> urls;
+    private List<UserMention> userMentions;
+    private List<Symbol> symbols;
+
 
     public static Entity fromJSON(JSONObject jsonObject){
         Entity entity = new Entity();

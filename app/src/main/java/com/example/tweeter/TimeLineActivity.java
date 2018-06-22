@@ -4,14 +4,18 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 
 import com.example.tweeter.model.Dataprovider;
 import com.example.tweeter.model.Tweet;
+import com.example.tweeter.model.User;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
@@ -34,6 +38,7 @@ public class TimeLineActivity extends AppCompatActivity {
     private ListView homeTimeLineList;
     private ListAdapter listAdapter;
     Toolbar toolbar;
+    private List<Tweet> tweets = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +55,22 @@ public class TimeLineActivity extends AppCompatActivity {
             GetHomeTimeLine getHomeTimeLine = new GetHomeTimeLine();
             getHomeTimeLine.execute();
         }
+
+        homeTimeLineList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent userProfile = new Intent(TimeLineActivity.this, DetailActivity.class);
+                Tweet tweet = tweets.get(position);
+                String userid = tweet.getUser().getId_str();
+                userProfile.putExtra(AuthorizationManager.USER_ID, userid);
+                startActivity(userProfile);
+            }
+        });
     }
 
     private class GetHomeTimeLine extends AsyncTask<Void, Void, List<Tweet>>{
         @Override
         protected List<Tweet> doInBackground(Void... voids) {
-            List<Tweet> tweets = new ArrayList<>();
 
             try{
                 OAuthRequest request = new OAuthRequest(Verb.GET, homeTimeLineUrl);

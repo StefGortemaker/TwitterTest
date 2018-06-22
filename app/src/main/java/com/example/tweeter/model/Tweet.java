@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Tweet {
 
     private User user;
+    private Entity entity;
 
     private String created_at;
     private int id;
@@ -33,8 +34,6 @@ public class Tweet {
     private boolean favorited;
     private boolean retweeted;
     private String lang;
-
-    private ArrayList<Entity> entities;
 
     public String getCreatAt() {
         return created_at;
@@ -65,12 +64,9 @@ public class Tweet {
 
             JSONObject userJsonObject = tweetObj.getJSONObject("user");
             tweet.user = User.fromJSON(userJsonObject);
-            // Dataprovider.users.add(user);
 
             JSONObject JsonEntity = tweetObj.getJSONObject("entities");
-            //Entity entity =
-            Entity.fromJSON(JsonEntity);
-            //Dataprovider.entities.add(entity);
+            tweet.entity = Entity.fromJSON(JsonEntity);
 
         }catch(JSONException e){
             e.printStackTrace();

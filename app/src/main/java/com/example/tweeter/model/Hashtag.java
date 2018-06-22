@@ -12,6 +12,20 @@ public class Hashtag {
 
     private ArrayList<Integer> indices = new ArrayList<>();
 
+    public String getText(){ return text; }
+
+    public ArrayList<Integer> getIndices() {
+        return indices;
+    }
+
+    public int getStartIndiceIndex(){
+        return indices.indexOf(0);
+    }
+
+    public int getEndIndiceIndex(){
+        return indices.indexOf(1);
+    }
+
     public static Hashtag fromJSON(JSONArray jsonArrayHashtag) {
         Hashtag hashtag = new Hashtag();
         if (jsonArrayHashtag.length() != 0) {

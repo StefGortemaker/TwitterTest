@@ -34,7 +34,7 @@ public class Tweet {
     private boolean retweeted;
     private String lang;
 
-    private ArrayList<Entity> entities;
+    private Entity entity ;
 
     public String getCreatAt() {
         return created_at;
@@ -55,6 +55,7 @@ public class Tweet {
     public User getUser(){
         return user;
     }
+    public Entity getEntity(){ return entity;}
 
     public static Tweet fromJSON(JSONObject tweetObj) {
         Tweet tweet = new Tweet();
@@ -70,7 +71,8 @@ public class Tweet {
             JSONObject JsonEntity = tweetObj.getJSONObject("entities");
             //Entity entity =
             Entity.fromJSON(JsonEntity);
-            //Dataprovider.entities.add(entity);
+            Entity entity = Entity.fromJSON(JsonEntity);
+            tweet.entity = entity;
 
         }catch(JSONException e){
             e.printStackTrace();

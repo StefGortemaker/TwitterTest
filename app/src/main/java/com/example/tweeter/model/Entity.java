@@ -14,6 +14,13 @@ public class Entity {
     private List<UserMention> userMentions;
     private List<Symbol> symbols;
 
+    public List<Hashtag> getHashtags() {
+        return hashtags;
+    }
+
+    public List<UserMention> getUserMentions() {
+        return userMentions;
+    }
 
     public static Entity fromJSON(JSONObject jsonObject){
         Entity entity = new Entity();

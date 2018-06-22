@@ -63,16 +63,18 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
             ImageView imageView = convertView.findViewById(R.id.profileImage);
 
             Entity entity = tweet.getEntity();
-            ArrayList<Hashtag> hashtags = new ArrayList<>();
-            ArrayList<UserMention> userMentions = new ArrayList<>();
-            hashtags.addAll(entity.getHashtags());
-            userMentions.addAll(entity.getUserMentions());
+            List<Hashtag> hashtags = new ArrayList<>();
+            List<UserMention> userMentions = new ArrayList<>();
+            if(entity != null) {
+                hashtags.addAll(entity.getHashtags());
+                userMentions.addAll(entity.getUserMentions());
+            }
 
             if(!hashtags.isEmpty()){
                 for (int j = 0; j < hashtags.size(); j++) {
                     if (hashtags.get(j) != null) {
                         Hashtag hashtag = hashtags.get(j);
-                        spannable.setSpan(new ForegroundColorSpan(Color.RED), hashtag.getStartIndiceIndex()+1, hashtag.getEndIndiceIndex()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        spannable.setSpan(new ForegroundColorSpan(Color.RED), hashtag.getStartIndice(), hashtag.getStartIndice(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
             }
@@ -83,7 +85,7 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
                 for (int j = 0; j < userMentions.size(); j++) {
                     if (userMentions.get(j) != null) {
                         UserMention userMention = userMentions.get(j);
-                        spannable.setSpan(new ForegroundColorSpan(Color.BLUE), userMention.getStartIndice()+1, userMention.getEndIndice()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        spannable.setSpan(new ForegroundColorSpan(Color.BLUE), userMention.getStartIndice(), userMention.getEndIndice(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         indice1 = userMention.getStartIndice();
                         indice2 = userMention.getEndIndice();
                     }

@@ -38,6 +38,7 @@ public class MainUserProfileActivity extends AppCompatActivity{
     ImageView imageView, backgroundImage;
     TextView tvName, tvScreenName, tvDescription, tvLocation;
     ListView tweetList;
+    Button btnFollowers, btnFollowing;
 
     ListAdapter adapter;
 
@@ -58,6 +59,8 @@ public class MainUserProfileActivity extends AppCompatActivity{
         tvScreenName = findViewById(R.id.textViewScreenName);
         tvDescription = findViewById(R.id.textViewDescription);
         tvLocation = findViewById(R.id.textViewLocation);
+        btnFollowers = findViewById(R.id.btnFollowers);
+        btnFollowing = findViewById(R.id.btnFollowing);
 
         toolbar = findViewById(R.id.custom_title_bar);
         setSupportActionBar(toolbar);
@@ -79,7 +82,34 @@ public class MainUserProfileActivity extends AppCompatActivity{
             Picasso.get()
                     .load(Dataprovider.signedInuUser.getProfile_banner_url())
                     .into(backgroundImage);
+
+            String following = String.valueOf(Dataprovider.signedInuUser.getFriends_count());
+            String followers = String.valueOf(Dataprovider.signedInuUser.getFollowers_count());
+
+            btnFollowing.setText(following + " Following");
+            btnFollowers.setText(followers + " Followers");
         }
+
+        btnFollowing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent following = new Intent(MainUserProfileActivity.this, FollowActivity.class);
+                following.putExtra(AuthorizationManager.USER_ID, Dataprovider.signedInuUser.getId_str());
+                following.putExtra(AuthorizationManager.USER_FOLLOW_REQ, 0);
+                startActivity(following);
+
+            }
+        });
+
+        btnFollowers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent followers = new Intent(MainUserProfileActivity.this, FollowActivity.class);
+                followers.putExtra(AuthorizationManager.USER_ID, Dataprovider.signedInuUser.getId_str());
+                followers.putExtra(AuthorizationManager.USER_FOLLOW_REQ, 1);
+                startActivity(followers);
+            }
+        });
     }
 
     private class GetUserTimeline extends AsyncTask<Void, Void, List<Tweet>>{

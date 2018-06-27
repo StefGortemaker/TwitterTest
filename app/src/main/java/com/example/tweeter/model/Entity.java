@@ -31,19 +31,40 @@ public class Entity {
             for (int i = 0; i < jsonArrayHastag.length(); i++) {
                 entity.hashtags.add(Hashtag.fromJSON(jsonArrayHastag));
             }
-            JSONArray jsonArrayUserMention = jsonObject.getJSONArray("user_mentions");
-            //UserMention userMention =
-            UserMention.fromJSON(jsonArrayUserMention);
-            //Dataprovider.userMentions.add(userMention);
 
-            JSONArray jsonArrayUrl = jsonObject.getJSONArray("urls");
-            //Url url =
-            Url.fromJSON(jsonArrayUrl);
-            //Dataprovider.urls.add(url);
+            JSONArray jsonArrayUserMention = jsonObject.getJSONArray("user_mentions");
+            for (int i = 0; i < jsonArrayUserMention.length(); i++) {
+                entity.userMentions.add(UserMention.fromJSON(jsonArrayUserMention));
+            }
+
+            JSONArray jsonArrayMedia = jsonObject.getJSONArray("media");
+            for (int i = 0; i < jsonArrayMedia.length(); i++) {
+
+            }
 
         }catch(JSONException e){
             e.printStackTrace();
         }
         return entity;
+    }
+
+    public List<Hashtag> getHashtags() {
+        return hashtags;
+    }
+
+    public List<Media> getMedia() {
+        return media;
+    }
+
+    public List<Url> getUrls() {
+        return urls;
+    }
+
+    public List<UserMention> getUserMentions() {
+        return userMentions;
+    }
+
+    public List<Symbol> getSymbols() {
+        return symbols;
     }
 }

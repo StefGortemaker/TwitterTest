@@ -6,11 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
+import com.example.tweeter.model.Dataprovider;
 import com.example.tweeter.model.Tweet;
 import com.example.tweeter.model.User;
 import com.github.scribejava.core.model.OAuthRequest;
@@ -37,10 +40,13 @@ public class DetailActivity extends AppCompatActivity {
     ImageView imageView, backgroundImage;
     TextView tvName, tvScreenName, tvDescription, tvLocation;
     ListView tweetList;
+    Button btnFollowers, btnFollowing;
 
     ListAdapter adapter;
 
     Toolbar toolbar;
+
+    User user;
 
 
     @Override
@@ -55,6 +61,8 @@ public class DetailActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.textViewDescription);
         tvLocation = findViewById(R.id.textViewLocation);
         tweetList = findViewById(R.id.lvUserTweetList);
+        btnFollowers = findViewById(R.id.btnFollowers);
+        btnFollowing = findViewById(R.id.btnFollowing);
 
         toolbar = findViewById(R.id.custom_title_bar);
         setSupportActionBar(toolbar);
@@ -72,15 +80,35 @@ public class DetailActivity extends AppCompatActivity {
             GetUserTimeline getTimeline = new GetUserTimeline();
             getUser.execute();
             getTimeline.execute();
+
         }
+
+        btnFollowing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent following = new Intent(DetailActivity.this, FollowActivity.class);
+                following.putExtra(AuthorizationManager.USER_ID, user.getId_str());
+                following.putExtra(AuthorizationManager.USER_FOLLOW_REQ, 0);
+                startActivity(following);
+
+            }
+        });
+
+        btnFollowers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent followers = new Intent(DetailActivity.this, FollowActivity.class);
+                followers.putExtra(AuthorizationManager.USER_ID, user.getId_str());
+                followers.putExtra(AuthorizationManager.USER_FOLLOW_REQ, 1);
+                startActivity(followers);
+            }
+        });
     }
 
     public class GetUser extends AsyncTask<Void, Void, User>{
 
         @Override
         protected User doInBackground(Void... voids) {
-
-            User user;
 
             try {
                 OAuthRequest request = new OAuthRequest(Verb.GET, url);
@@ -125,6 +153,12 @@ public class DetailActivity extends AppCompatActivity {
             Picasso.get()
                     .load(user.getProfile_banner_url())
                     .into(backgroundImage);
+
+            String following = String.valueOf(user.getFriends_count());
+            String followers = String.valueOf(user.getFollowers_count());
+
+            btnFollowing.setText(following + " Following");
+            btnFollowers.setText(followers + " Followers");
         }
     }
 

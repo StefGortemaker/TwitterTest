@@ -22,6 +22,7 @@
         <activity android:name=".TimeLineActivity" />
         <activity android:name=".MainUserProfileActivity"/>
         <activity android:name=".PostTweetActivity" />
+        <activity android:name=".FollowActivity" />
     </application>
 
 </manifest>

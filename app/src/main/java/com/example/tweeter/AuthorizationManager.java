@@ -12,6 +12,7 @@ public class AuthorizationManager {
     public static OAuth1AccessToken accessToken;
 
     public static final String USER_ID = "user_id";
+    public static final String USER_FOLLOW_REQ = "following";
 
     private static AuthorizationManager manager;
     private static String API_KEY = "UmPu4PuPg8YqGwPFDzJrG9Mli";

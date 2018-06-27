@@ -78,6 +78,14 @@ public class User {
     }
     public String getDescription() { return description; }
 
+    public int getFollowers_count() {
+        return followers_count;
+    }
+
+    public int getFriends_count() {
+        return friends_count;
+    }
+
     public String getProfile_banner_url() {
         return profile_banner_url;
     }
@@ -92,6 +100,8 @@ public class User {
             user.profile_image_url = jsonObject.getString("profile_image_url");
             user.description = jsonObject.getString("description");
             user.profile_banner_url = jsonObject.getString("profile_banner_url");
+            user.followers_count = jsonObject.getInt("followers_count");
+            user.friends_count = jsonObject.getInt("friends_count");
 
         }catch(JSONException e){
             e.printStackTrace();

@@ -15,6 +15,8 @@ public class Hashtag extends BaseEntity{
         super(startIndice, endIndice);
     }
 
+    public String getText(){ return text; }
+
     public static Hashtag fromJSON(JSONArray jsonArrayHashtag) {
         Hashtag hashtag = new Hashtag(0, 0);
         if (jsonArrayHashtag.length() != 0) {
@@ -36,7 +38,4 @@ public class Hashtag extends BaseEntity{
         return hashtag;
     }
 
-    public String getText() {
-        return text;
-    }
 }

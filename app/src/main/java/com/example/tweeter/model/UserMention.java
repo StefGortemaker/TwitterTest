@@ -15,6 +15,14 @@ public class UserMention {
 
     private ArrayList<Integer> indices = new ArrayList<>();
 
+    public int getStartIndice(){
+        return indices.indexOf(0);
+    }
+
+    public int getEndIndice(){
+        return indices.indexOf(0);
+    }
+
     public static UserMention fromJSON(JSONArray jsonArrayUserMention) {
         UserMention userMention = new UserMention();
         if (jsonArrayUserMention.length() != 0) {

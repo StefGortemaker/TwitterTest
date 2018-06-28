@@ -86,6 +86,10 @@ public class User {
         return friends_count;
     }
 
+    public boolean isFollowing() {
+        return following;
+    }
+
     public String getProfile_banner_url() {
         return profile_banner_url;
     }
@@ -102,6 +106,7 @@ public class User {
             user.profile_banner_url = jsonObject.getString("profile_banner_url");
             user.followers_count = jsonObject.getInt("followers_count");
             user.friends_count = jsonObject.getInt("friends_count");
+            user.following = jsonObject.getBoolean("following");
 
         }catch(JSONException e){
             e.printStackTrace();
@@ -109,4 +114,7 @@ public class User {
         return user;
     }
 
+    public void setFollowing(boolean following) {
+        this.following = following;
+    }
 }

@@ -76,7 +76,7 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
                 for (int j = 0; j < hashtags.size(); j++) {
                     if (hashtags.get(j) != null) {
                         Hashtag hashtag = hashtags.get(j);
-                        spannable.setSpan(new ForegroundColorSpan(Color.RED), hashtag.getStartIndice(), hashtag.getStartIndice(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        spannable.setSpan(new ForegroundColorSpan(Color.RED), hashtag.getStartIndice(), hashtag.getEndIndice(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
             }
@@ -85,7 +85,7 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
                 for (int j = 0; j < userMentions.size(); j++) {
                     if (userMentions.get(j) != null) {
                         UserMention userMention = userMentions.get(j);
-                        spannable.setSpan(new ForegroundColorSpan(Color.BLUE), userMention.getStartIndice(), userMention.getEndIndice(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        spannable.setSpan(new ForegroundColorSpan(Color.CYAN), userMention.getStartIndice(), userMention.getEndIndice(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
             }

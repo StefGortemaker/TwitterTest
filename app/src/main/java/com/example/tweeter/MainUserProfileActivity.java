@@ -38,7 +38,7 @@ public class MainUserProfileActivity extends AppCompatActivity{
     ImageView imageView, backgroundImage;
     TextView tvName, tvScreenName, tvDescription, tvLocation;
     ListView tweetList;
-    Button btnFollowers, btnFollowing;
+    Button btnFollowers, btnFollowing, btnFollow;
 
     ListAdapter adapter;
 
@@ -61,6 +61,8 @@ public class MainUserProfileActivity extends AppCompatActivity{
         tvLocation = findViewById(R.id.textViewLocation);
         btnFollowers = findViewById(R.id.btnFollowers);
         btnFollowing = findViewById(R.id.btnFollowing);
+        btnFollow = findViewById(R.id.btnFollow);
+        btnFollow.setVisibility(View.GONE);
 
         toolbar = findViewById(R.id.custom_title_bar);
         setSupportActionBar(toolbar);

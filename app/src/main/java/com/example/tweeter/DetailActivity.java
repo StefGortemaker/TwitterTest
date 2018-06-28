@@ -1,5 +1,6 @@
 package com.example.tweeter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -40,7 +41,7 @@ public class DetailActivity extends AppCompatActivity {
     ImageView imageView, backgroundImage;
     TextView tvName, tvScreenName, tvDescription, tvLocation;
     ListView tweetList;
-    Button btnFollowers, btnFollowing;
+    Button btnFollowers, btnFollowing, btnFollow;
 
     ListAdapter adapter;
 
@@ -63,6 +64,7 @@ public class DetailActivity extends AppCompatActivity {
         tweetList = findViewById(R.id.lvUserTweetList);
         btnFollowers = findViewById(R.id.btnFollowers);
         btnFollowing = findViewById(R.id.btnFollowing);
+        btnFollow = findViewById(R.id.btnFollow);
 
         toolbar = findViewById(R.id.custom_title_bar);
         setSupportActionBar(toolbar);
@@ -101,6 +103,14 @@ public class DetailActivity extends AppCompatActivity {
                 followers.putExtra(AuthorizationManager.USER_ID, user.getId_str());
                 followers.putExtra(AuthorizationManager.USER_FOLLOW_REQ, 1);
                 startActivity(followers);
+            }
+        });
+
+        btnFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthorizationManager.FollowRequest followRequest = new AuthorizationManager().new FollowRequest(user, user.isFollowing(), getApplicationContext());
+                followRequest.execute();
             }
         });
     }
@@ -159,6 +169,11 @@ public class DetailActivity extends AppCompatActivity {
 
             btnFollowing.setText(following + " Following");
             btnFollowers.setText(followers + " Followers");
+            if (user.isFollowing()) {
+                btnFollow.setText("Following");
+            } else {
+                btnFollow.setText("Follow?");
+            }
         }
     }
 

@@ -33,7 +33,7 @@ public class FollowAdapter extends ArrayAdapter<User> {
             convertView = inflater.inflate(R.layout.compound_follow_list, parent, false);
         }
 
-        User user = getItem(position);
+        final User user = getItem(position);
 
         ImageView ivProfileImage = convertView.findViewById(R.id.ivCFLUserImage);
         TextView tvUserName = convertView.findViewById(R.id.tvCFLName);
@@ -57,7 +57,8 @@ public class FollowAdapter extends ArrayAdapter<User> {
         btnFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                AuthorizationManager.FollowRequest followRequest = new AuthorizationManager().new FollowRequest(user, user.isFollowing(), getContext());
+                followRequest.execute();
             }
         });
 

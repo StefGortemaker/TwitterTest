@@ -66,8 +66,12 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
             List<Hashtag> hashtags = new ArrayList<>();
             List<UserMention> userMentions = new ArrayList<>();
             if(entity != null) {
-                hashtags.addAll(entity.getHashtags());
-                userMentions.addAll(entity.getUserMentions());
+                if (entity.getHashtags() != null) {
+                    hashtags.addAll(entity.getHashtags());
+                }
+                if (entity.getUserMentions() != null) {
+                    userMentions.addAll(entity.getUserMentions());
+                }
             }
 
             if(!hashtags.isEmpty()){

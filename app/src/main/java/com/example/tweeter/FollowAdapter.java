@@ -1,6 +1,7 @@
 package com.example.tweeter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +19,15 @@ public class FollowAdapter extends ArrayAdapter<User> {
 
     private LayoutInflater inflater;
 
-    public FollowAdapter(Context context, List<User> objects) {
+    FollowAdapter(Context context, List<User> objects) {
         super(context, R.layout.compound_follow_list, objects);
 
         inflater = LayoutInflater.from(context);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.compound_follow_list, parent, false);
@@ -44,6 +46,12 @@ public class FollowAdapter extends ArrayAdapter<User> {
             tvScreenNam.setText(user.getScreen_name());
             tvDescription.setText(user.getDescription());
             Picasso.get().load(user.getProfile_image_url()).into(ivProfileImage);
+
+            if (user.isFollowing()){
+                btnFollow.setText(R.string.btnFollowing);
+            } else {
+                btnFollow.setText(R.string.btnFollow);
+            }
         }
 
         btnFollow.setOnClickListener(new View.OnClickListener() {

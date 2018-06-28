@@ -10,18 +10,17 @@ public class Hashtag extends BaseEntity{
 
     private String text;
 
-
     public Hashtag(int startIndice, int endIndice) {
         super(startIndice, endIndice);
     }
 
     public String getText(){ return text; }
 
-    public static Hashtag fromJSON(JSONArray jsonArrayHashtag) {
+    public static Hashtag fromJSON(JSONObject jsonObjectHashtag) {
         Hashtag hashtag = new Hashtag(0, 0);
-        if (jsonArrayHashtag.length() != 0) {
+        //if (jsonArrayHashtag.length() != 0) {
             try {
-                JSONObject jsonObjectHashtag = jsonArrayHashtag.getJSONObject(0);
+                //JSONObject jsonObjectHashtag = jsonArrayHashtag.getJSONObject(0);
                 if (jsonObjectHashtag != null) {
                     hashtag.text = jsonObjectHashtag.getString("text");
 
@@ -34,7 +33,7 @@ public class Hashtag extends BaseEntity{
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
+        //}
         return hashtag;
     }
 

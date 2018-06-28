@@ -6,28 +6,38 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class UserMention {
+public class UserMention extends BaseEntity{
 
     private String screen_name;
     private String name;
     private int id;
     private String id_str;
 
-    private ArrayList<Integer> indices = new ArrayList<>();
-
-    public int getStartIndice(){
-        return indices.indexOf(0);
+    public String getScreen_name() {
+        return screen_name;
     }
 
-    public int getEndIndice(){
-        return indices.indexOf(0);
+    public String getName() {
+        return name;
     }
 
-    public static UserMention fromJSON(JSONArray jsonArrayUserMention) {
-        UserMention userMention = new UserMention();
-        if (jsonArrayUserMention.length() != 0) {
+    public int getId() {
+        return id;
+    }
+
+    public String getId_str() {
+        return id_str;
+    }
+
+    public UserMention(int startIndice, int endIndice) {
+        super(startIndice, endIndice);
+    }
+
+    public static UserMention fromJSON(JSONObject jsonObjectUserMention) {
+        UserMention userMention = new UserMention(0,0);
+        // if (jsonObjectUserMention != null) {
             try {
-                JSONObject jsonObjectUserMention = jsonArrayUserMention.getJSONObject(0);
+                //JSONObject jsonObjectUserMention = jsonArrayUserMention.getJSONObject(0);
 
                 if (jsonObjectUserMention != null) {
                     userMention.screen_name = jsonObjectUserMention.getString("screen_name");
@@ -36,17 +46,15 @@ public class UserMention {
                     userMention.id_str = jsonObjectUserMention.getString("id_str");
 
                     JSONArray jsonIndices = jsonObjectUserMention.getJSONArray("indices");
-                    for (int i = 0; i < jsonIndices.length(); i++) {
-                        int a = jsonIndices.getInt(i);
-                        userMention.indices.add(a);
-                    }
+                    userMention.setStartIndice(jsonIndices.getInt(0));
+                    userMention.setEndIndice(jsonIndices.getInt(1));
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-        }
+        //}
 
         return userMention;
     }

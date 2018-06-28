@@ -205,6 +205,9 @@ public class DetailActivity extends AppCompatActivity {
         } else if (id == R.id.action_post_tweet) {
             Intent postTweetIntent = new Intent(DetailActivity.this, PostTweetActivity.class);
             startActivity(postTweetIntent);
+        } else if (id == R.id.action_search) {
+            Intent searchIntent = new Intent(DetailActivity.this, SearchActivity.class);
+            startActivity(searchIntent);
         }
 
         return super.onOptionsItemSelected(item);

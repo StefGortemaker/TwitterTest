@@ -6,4 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".SearchActivity">
 
+    <include
+        android:id="@+id/custom_title_bar"
+        layout="@layout/custom_title_bar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/custom_title_bar" />
+
+    <ListView
+        android:id="@+id/listview_search"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
 </android.support.constraint.ConstraintLayout>

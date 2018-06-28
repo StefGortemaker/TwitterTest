@@ -4,14 +4,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Entity {
 
-    private List<Hashtag> hashtags;
+    private List<Hashtag> hashtags = new ArrayList<>();
     private List<Media> media;
-    private List<Url> urls;
-    private List<UserMention> userMentions;
+    private List<Url> urls = new ArrayList<>();
+    private List<UserMention> userMentions = new ArrayList<>();
     private List<Symbol> symbols;
 
     public List<Hashtag> getHashtags() {
@@ -22,26 +23,34 @@ public class Entity {
         return userMentions;
     }
 
-    public static Entity fromJSON(JSONObject jsonObject){
+    public List<Url> getUrls() {
+        return urls;
+    }
+
+    public static Entity fromJSON(JSONObject jsonObject) {
         Entity entity = new Entity();
-        try{
+        try {
 
             JSONArray jsonArrayHastag = jsonObject.getJSONArray("hashtags");
-            //Hashtag hashtag =
-            Hashtag.fromJSON(jsonArrayHastag);
-            //Dataprovider.hashtags.add(hashtag);
+            for (int i = 0; i < jsonArrayHastag.length(); i++) {
+                Hashtag hashtag = Hashtag.fromJSON(jsonArrayHastag.getJSONObject(i));
+                entity.hashtags.add(hashtag);
+            }
 
             JSONArray jsonArrayUserMention = jsonObject.getJSONArray("user_mentions");
-            //UserMention userMention =
-            UserMention.fromJSON(jsonArrayUserMention);
-            //Dataprovider.userMentions.add(userMention);
+            for (int i = 0; i < jsonArrayUserMention.length(); i++) {
+                UserMention userMention = UserMention.fromJSON(jsonArrayUserMention.getJSONObject(i));
+                entity.userMentions.add(userMention);
+            }
 
             JSONArray jsonArrayUrl = jsonObject.getJSONArray("urls");
-            //Url url =
-            Url.fromJSON(jsonArrayUrl);
-            //Dataprovider.urls.add(url);
+            for(int i = 0 ; i < jsonArrayUrl.length(); i++) {
+                Url url = Url.fromJSON(jsonArrayUrl.getJSONObject(i));
+                entity.urls.add(url);
+            }
 
-        }catch(JSONException e){
+
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return entity;

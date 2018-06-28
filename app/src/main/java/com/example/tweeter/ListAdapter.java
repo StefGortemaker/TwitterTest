@@ -65,13 +65,11 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
             Entity entity = tweet.getEntity();
             List<Hashtag> hashtags = new ArrayList<>();
             List<UserMention> userMentions = new ArrayList<>();
+            List<Url> urls = new ArrayList<>();
             if(entity != null) {
-                if (entity.getHashtags() != null) {
-                    hashtags.addAll(entity.getHashtags());
-                }
-                if (entity.getUserMentions() != null) {
-                    userMentions.addAll(entity.getUserMentions());
-                }
+                hashtags.addAll(entity.getHashtags());
+                userMentions.addAll(entity.getUserMentions());
+                urls.addAll(entity.getUrls());
             }
 
             if(!hashtags.isEmpty()){
@@ -83,23 +81,27 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
                 }
             }
 
-            int indice1= 0;
-            int indice2= 0;
             if(!userMentions.isEmpty()){
                 for (int j = 0; j < userMentions.size(); j++) {
                     if (userMentions.get(j) != null) {
                         UserMention userMention = userMentions.get(j);
                         spannable.setSpan(new ForegroundColorSpan(Color.BLUE), userMention.getStartIndice(), userMention.getEndIndice(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        indice1 = userMention.getStartIndice();
-                        indice2 = userMention.getEndIndice();
                     }
                 }
             }
 
-            //spannable.setSpan(new ForegroundColorSpan(Color.YELLOW),0, tweet.getText().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if(!urls.isEmpty()){
+                for(int j = 0; j < urls.size(); j++){
+                    if(urls.get(j)!= null){
+                        Url url = urls.get(j);
+                        spannable.setSpan(new ForegroundColorSpan(Color.GREEN), url.getStartIndice(), url.getEndIndice(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                }
+            }
+
 
             tvName.setText(user.getName());
-            tvText.setText(String.valueOf(indice1+ " " +indice2));
+            tvText.setText(spannable);
             tvScreenName.setText(user.getScreen_name());
             createdAt.setText(tweet.getCreatAt());
             Picasso.get().load(user.getProfile_image_url()).into(imageView);

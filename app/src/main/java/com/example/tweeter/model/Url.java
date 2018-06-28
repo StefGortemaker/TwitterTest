@@ -7,19 +7,33 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Url {
+public class Url extends BaseEntity {
 
     private String url;
     private String expanded_url;
     private String display_url;
 
-    private ArrayList<Integer> indices = new ArrayList<>();
+    public Url(int startIndice, int endIndice) {
+        super(startIndice, endIndice);
+    }
 
-    public static Url fromJSON(JSONArray jsonArrayUrl) {
-        Url url = new Url();
-        if (jsonArrayUrl.length() != 0) {
+    public String getUrl() {
+        return url;
+    }
+
+    public String getExpanded_url() {
+        return expanded_url;
+    }
+
+    public String getDisplay_url() {
+        return display_url;
+    }
+
+    public static Url fromJSON(JSONObject jsonObjectURL) {
+        Url url = new Url(0,0);
+       // if (jsonArrayUrl.length() != 0) {
             try {
-                JSONObject jsonObjectURL = jsonArrayUrl.getJSONObject(0);
+              //  JSONObject jsonObjectURL = jsonArrayUrl.getJSONObject(0);
                 if (jsonObjectURL != null) {
                     url.url = jsonObjectURL.getString("url");
 
@@ -27,16 +41,14 @@ public class Url {
                     url.display_url = jsonObjectURL.getString("display_url");
 
                     JSONArray jsonIndices = jsonObjectURL.getJSONArray("indices");
-                    for (int j = 0; j < jsonIndices.length(); j++) {
-                        int a = jsonIndices.getInt(j);
-                        url.indices.add(a);
-                    }
+                    url.setStartIndice(jsonIndices.getInt(0));
+                    url.setEndIndice(jsonIndices.getInt(1));
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
+        //}
         return url;
     }
 }

@@ -183,10 +183,12 @@ public class MainUserProfileActivity extends AppCompatActivity{
         if (id == R.id.action_timeline) {
             Intent timelineIntent = new Intent(MainUserProfileActivity.this, TimeLineActivity.class);
             startActivity(timelineIntent);
-            return true;
         } else if (id == R.id.action_post_tweet){
             Intent postTweetIntent = new Intent(MainUserProfileActivity.this, PostTweetActivity.class);
             startActivity(postTweetIntent);
+        } else if (id == R.id.action_search){
+            Intent searchIntent = new Intent(MainUserProfileActivity.this, SearchActivity.class);
+            startActivity(searchIntent);
         }
 
         return super.onOptionsItemSelected(item);

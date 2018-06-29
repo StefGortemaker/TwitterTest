@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.tweeter.model.Dataprovider;
 import com.example.tweeter.model.Entity;
 import com.example.tweeter.model.Hashtag;
+import com.example.tweeter.model.Media;
 import com.example.tweeter.model.Tweet;
 import com.example.tweeter.model.Url;
 import com.example.tweeter.model.User;
@@ -61,15 +62,18 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
             TextView tvText = convertView.findViewById(R.id.textViewText);
             TextView createdAt = convertView.findViewById(R.id.textViewCreatedAt);
             ImageView imageView = convertView.findViewById(R.id.profileImage);
+            ImageView mediaImage = convertView.findViewById(R.id.mediaImage);
 
             Entity entity = tweet.getEntity();
             List<Hashtag> hashtags = new ArrayList<>();
             List<UserMention> userMentions = new ArrayList<>();
             List<Url> urls = new ArrayList<>();
+            List<Media> media = new ArrayList<>();
             if(entity != null) {
                 hashtags.addAll(entity.getHashtags());
                 userMentions.addAll(entity.getUserMentions());
                 urls.addAll(entity.getUrls());
+                media.addAll(entity.getMedia());
             }
 
             if(!hashtags.isEmpty()){
@@ -99,6 +103,17 @@ public class ListAdapter extends ArrayAdapter<Tweet> {
                 }
             }
 
+            if (!media.isEmpty()){
+                for (int j = 0; j < media.size(); j++){
+                    if (media.get(j) != null){
+                        Media medium = media.get(j);
+                        spannable.setSpan(new ForegroundColorSpan(Color.BLUE), medium.getStartIndice(), medium.getEndIndice(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        Picasso.get().load(medium.getMedia_url()).resize(226, 238).into(mediaImage);
+                    }
+                }
+            } else {
+                mediaImage.setVisibility(View.INVISIBLE);
+            }
 
             tvName.setText(user.getName());
             tvText.setText(spannable);

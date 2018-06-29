@@ -68,6 +68,7 @@ public class FollowActivity extends AppCompatActivity {
 
             GetFollowers getFollowers = new GetFollowers();
             getFollowers.execute();
+
         }
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

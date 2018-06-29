@@ -10,10 +10,9 @@ import java.util.List;
 public class Entity {
 
     private List<Hashtag> hashtags = new ArrayList<>();
-    private List<Media> media;
     private List<Url> urls = new ArrayList<>();
     private List<UserMention> userMentions = new ArrayList<>();
-    private List<Symbol> symbols;
+    private List<Media> media = new ArrayList<>();
 
     public List<Hashtag> getHashtags() {
         return hashtags;
@@ -26,6 +25,8 @@ public class Entity {
     public List<Url> getUrls() {
         return urls;
     }
+
+    public List<Media> getMedia() { return media; }
 
     public static Entity fromJSON(JSONObject jsonObject) {
         Entity entity = new Entity();
@@ -47,6 +48,12 @@ public class Entity {
             for(int i = 0 ; i < jsonArrayUrl.length(); i++) {
                 Url url = Url.fromJSON(jsonArrayUrl.getJSONObject(i));
                 entity.urls.add(url);
+            }
+
+            JSONArray jsonArrayMedia = jsonObject.getJSONArray("media");
+            for (int i = 0; i < jsonArrayMedia.length(); i++){
+                Media medium = Media.fromJSON(jsonArrayMedia.getJSONObject(i));
+                entity.media.add(medium);
             }
 
 

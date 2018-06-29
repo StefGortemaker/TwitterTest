@@ -18,7 +18,6 @@ public class Hashtag extends BaseEntity{
 
     public static Hashtag fromJSON(JSONObject jsonObjectHashtag) {
         Hashtag hashtag = new Hashtag(0, 0);
-        //if (jsonArrayHashtag.length() != 0) {
             try {
                 //JSONObject jsonObjectHashtag = jsonArrayHashtag.getJSONObject(0);
                 if (jsonObjectHashtag != null) {
@@ -33,7 +32,6 @@ public class Hashtag extends BaseEntity{
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        //}
         return hashtag;
     }
 
